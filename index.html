@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FC Trust Shop</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+}
+
+nav{
+background:#111827;
+padding:15px;
+font-size:22px;
+color:#00ffff;
+}
+
+.container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+padding:20px;
+}
+
+.card{
+background:white;
+color:black;
+width:280px;
+margin:20px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.4);
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+background:#22c55e;
+color:white;
+margin-top:10px;
+}
+
+button:disabled{
+background:gray;
+cursor:not-allowed;
+}
+
+input{
+padding:10px;
+width:250px;
+border-radius:8px;
+border:none;
+margin-top:10px;
+}
+
+.result{
+margin-top:20px;
+font-size:18px;
+color:yellow;
+}
+
+.bank{
+background:#111827;
+padding:25px;
+margin-top:30px;
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<nav>🔥 FC TRUST SHOP 🔥</nav>
+
+<div class="container">
+
+<div class="card">
+<h3>💎 Gói 20K</h3>
+<p>OVR 105 - 120</p>
+<button onclick="chonGoi('20K',20000,105,120)">Chọn gói</button>
+</div>
+
+<div class="card">
+<h3>🔥 Gói 50K</h3>
+<p>OVR 115 - 125</p>
+<button onclick="chonGoi('50K',50000,115,125)">Chọn gói</button>
+</div>
+
+<div class="card">
+<h3>👑 Gói 100K</h3>
+<p>OVR 118 - 126</p>
+<button onclick="chonGoi('100K',100000,118,126)">Chọn gói</button>
+</div>
+
+</div>
+
+<h3>📥 Nhập ID Game</h3>
+<input type="text" id="gameid" placeholder="Nhập ID FC Mobile">
+<br>
+<button id="nutMua" onclick="mua()">Mua ngay</button>
+
+<div class="result" id="ketqua"></div>
+
+<div class="bank" id="thanhtoan">
+<h3>💳 Thanh toán MB BANK</h3>
+<p>Số tài khoản: <b>0382586170</b></p>
+<p>Chủ tài khoản: FC TRUST SHOP</p>
+<p id="noidung"></p>
+<p>⚠️ Sau khi chuyển khoản, liên hệ Zalo để nhận acc.</p>
+</div>
+
+<script>
+var goi="", gia=0, min=0, max=0;
+var daMua=false;
+var thoiGianCho=600; // 10 phút
+var demNguoc;
+
+function chonGoi(g,giaTien,minOVR,maxOVR){
+goi=g;
+gia=giaTien;
+min=minOVR;
+max=maxOVR;
+alert("Đã chọn gói "+g);
+}
+
+function randomOVR(min,max){
+return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function mua(){
+if(daMua){
+alert("Bạn phải chờ hết thời gian mới mua tiếp!");
+return;
+}
+
+var id=document.getElementById("gameid").value;
+
+if(goi=="" || id==""){
+alert("Vui lòng chọn gói và nhập ID!");
+return;
+}
+
+var maDon="DH"+Math.floor(Math.random()*10000);
+var ovr=randomOVR(min,max);
+
+document.getElementById("ketqua").innerHTML=
+"🎉 Bạn nhận được OVR: "+ovr+" | Mã đơn: "+maDon;
+
+document.getElementById("thanhtoan").style.display="block";
+document.getElementById("noidung").innerHTML=
+"Nội dung chuyển khoản: "+maDon+" - "+goi+" - ID "+id+" - "+gia+"đ";
+
+daMua=true;
+document.getElementById("nutMua").disabled=true;
+
+batDauDemNguoc();
+}
+
+function batDauDemNguoc(){
+var thoiGian=thoiGianCho;
+
+demNguoc=setInterval(function(){
+
+var phut=Math.floor(thoiGian/60);
+var giay=thoiGian%60;
+
+document.getElementById("ketqua").innerHTML=
+"⏳ Mua lại sau: "+phut+"p "+giay+"s";
+
+thoiGian--;
+
+if(thoiGian<0){
+clearInterval(demNguoc);
+daMua=false;
+document.getElementById("nutMua").disabled=false;
+document.getElementById("ketqua").innerHTML=
+"✅ Bạn có thể mua lại!";
+}
+},1000);
+}
+</script>
+
+</body>
+</html>
