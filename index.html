@@ -1,40 +1,194 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Web của tôi</title>
-    <meta charset="UTF-8">
-    <style>
-        body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            padding-top: 100px;
-        }
-        h1 {
-            font-size: 40px;
-        }
-        p {
-            font-size: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: black;
-            color: white;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>FC Trust Shop</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#0f172a;
+color:white;
+}
+
+/* MENU */
+nav{
+background:#111827;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+nav h2{
+margin:0;
+color:#00ffff;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:15px;
+}
+
+/* HEADER */
+header{
+text-align:center;
+padding:50px 20px;
+background:linear-gradient(135deg,#1e293b,#0f172a);
+}
+
+header h1{
+font-size:40px;
+color:#00ffff;
+}
+
+/* CARDS */
+.container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+padding:20px;
+}
+
+.card{
+background:white;
+color:black;
+width:300px;
+margin:20px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.5);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+.card h2{
+margin-top:0;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.buy{
+background:#22c55e;
+color:white;
+margin-top:10px;
+}
+
+.buy:hover{
+background:#15803d;
+}
+
+/* FORM */
+.form-section{
+background:#1e293b;
+padding:40px 20px;
+text-align:center;
+}
+
+input{
+padding:10px;
+width:250px;
+border-radius:8px;
+border:none;
+margin-top:10px;
+}
+
+.submit{
+background:#0068ff;
+color:white;
+margin-top:15px;
+}
+
+/* BANK */
+.bank{
+background:#111827;
+padding:30px;
+text-align:center;
+}
+
+/* FOOTER */
+footer{
+background:#0f172a;
+padding:20px;
+text-align:center;
+font-size:14px;
+color:gray;
+}
+</style>
 </head>
+
 <body>
 
-    <h1>🔥 Chào mừng đến web của tôi 🔥</h1>
-    <p>Web này được deploy bằng Vercel</p>
-    <button onclick="alert('Bạn bấm nút rồi đó 😎')">Bấm thử đi</button>
+<nav>
+<h2>🔥 FC TRUST SHOP</h2>
+<div>
+<a href="#">Trang chủ</a>
+<a href="#">Bảng giá</a>
+<a href="#">Liên hệ</a>
+</div>
+</nav>
+
+<header>
+<h1>Shop Acc FC Mobile Uy Tín</h1>
+<p>Giao Nhanh – Giá Rẻ – Hỗ Trợ 24/7</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>💎 Gói 20k</h2>
+<p>OVR 105 - 122</p>
+<button class="buy" onclick="alert('Liên hệ Zalo để mua')">Mua ngay</button>
+</div>
+
+<div class="card">
+<h2>🔥 Gói 50K</h2>
+<p>OVR 115 - 122</p>
+<button class="buy" onclick="alert('Liên hệ Zalo để mua')">Mua ngay</button>
+</div>
+
+<div class="card">
+<h2>👑 Gói 100K</h2>
+<p>OVR 118 - 125</p>
+<button class="buy" onclick="alert('Liên hệ Zalo để mua')">Mua ngay</button>
+</div>
+
+</div>
+
+<div class="form-section">
+<h2>📥 Nhập ID Game Để Đặt Hàng</h2>
+<input type="text" placeholder="Nhập ID FC Mobile của bạn">
+<br>
+<button class="submit" onclick="alert('Đã gửi ID! Liên hệ Zalo để hoàn tất.')">
+Gửi ID
+</button>
+</div>
+
+<div class="bank">
+<h3>💳 Thanh toán MB BANK</h3>
+<p>Số tài khoản: <b>0382586170</b></p>
+<p>Chủ tài khoản: FC TRUST SHOP</p>
+<p>Lưu ý: Chỉ có 1 STK duy nhất</p>
+<br>
+<button class="submit" onclick="window.location.href='https://zalo.me/'">
+📞 Liên hệ Zalo 0792391045
+</button>
+</div>
+
+<footer>
+© 2026 FC Trust Shop – All Rights Reserved
+</footer>
 
 </body>
 </html>
