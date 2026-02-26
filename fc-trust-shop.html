@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>FC Trust Shop</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+}
+
+nav{
+background:#111827;
+padding:15px;
+font-size:22px;
+color:#00ffff;
+}
+
+.container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+padding:20px;
+}
+
+.card{
+background:white;
+color:black;
+width:280px;
+margin:20px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.4);
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+background:#22c55e;
+color:white;
+margin-top:10px;
+}
+
+input{
+padding:10px;
+width:250px;
+border-radius:8px;
+border:none;
+margin-top:10px;
+}
+
+.result{
+margin-top:20px;
+font-size:18px;
+color:yellow;
+}
+
+.bank{
+background:#111827;
+padding:25px;
+margin-top:30px;
+display:none;
+}
+
+.admin{
+background:#000;
+padding:20px;
+margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>🔥 FC TRUST SHOP 🔥</nav>
+
+<div class="container">
+
+<div class="card">
+<h3>💎 Gói 20K</h3>
+<button onclick="chonGoi('20K',20000)">Chọn gói</button>
+</div>
+
+<div class="card">
+<h3>🔥 Gói 50K</h3>
+<button onclick="chonGoi('50K',50000)">Chọn gói</button>
+</div>
+
+<div class="card">
+<h3>👑 Gói 100K</h3>
+<button onclick="chonGoi('100K',100000)">Chọn gói</button>
+</div>
+
+</div>
+
+<h3>📥 Nhập Ten</h3>
+<input type="text" id="gameid" placeholder="Nhập ID FC Mobile">
+<br>
+<button id="muabtn" onclick="mua()">Mua ngay</button>
+
+<div class="result" id="ketqua"></div>
+
+<div class="bank" id="thanhtoan">
+<h3>💳 Thanh toán MB BANK</h3>
+<p>Số tài khoản: <b>0382586170</b></p>
+<p>Chủ tài khoản: Le Trung Hieu</p>
+<p id="noidung"></p>
+<p>⚠️ Sau khi chuyển khoản, liên hệ Zalo để nhận acc 0792391045.</p>
+</div>
+
+<div class="admin">
+<h3>🔐 ADMIN PANEL</h3>
+<input type="password" id="adminpass" placeholder="Nhập mật khẩu">
+<button onclick="moAdmin()">Mở</button>
+
+<div id="adminbox" style="display:none;margin-top:15px;">
+<p>OVR 105-115 (%)</p>
+<input type="number" id="r1">
+<p>OVR 116-120 (%)</p>
+<input type="number" id="r2">
+<p>OVR 121-124 (%)</p>
+<input type="number" id="r3">
+<p>OVR 125-126 (%)</p>
+<input type="number" id="r4">
+<br><br>
+<button onclick="luuTiLe()">Lưu tỉ lệ</button>
+<button onclick="duyetDon()">DUYỆT ĐƠN</button>
+</div>
+</div>
+
+<script>
+
+var goi="", gia=0;
+var choDuyet=false;
+var thongTinDon={};
+
+var rates = JSON.parse(localStorage.getItem("rates")) || {
+r1:70,
+r2:20,
+r3:8,
+r4:2
+};
+
+function moAdmin(){
+var pass=document.getElementById("adminpass").value;
+if(pass=="790999"){
+document.getElementById("adminbox").style.display="block";
+document.getElementById("r1").value=rates.r1;
+document.getElementById("r2").value=rates.r2;
+document.getElementById("r3").value=rates.r3;
+document.getElementById("r4").value=rates.r4;
+}else{
+alert("Sai mật khẩu!");
+}
+}
+
+function luuTiLe(){
+rates.r1=parseInt(document.getElementById("r1").value);
+rates.r2=parseInt(document.getElementById("r2").value);
+rates.r3=parseInt(document.getElementById("r3").value);
+rates.r4=parseInt(document.getElementById("r4").value);
+
+if(rates.r1+rates.r2+rates.r3+rates.r4!=100){
+alert("Tổng phải = 100%");
+return;
+}
+
+localStorage.setItem("rates", JSON.stringify(rates));
+alert("Đã lưu!");
+}
+
+function randomOVR(){
+var rand=Math.random()*100;
+
+if(rand < rates.r1)
+return Math.floor(Math.random()*(115-105+1))+105;
+else if(rand < rates.r1+rates.r2)
+return Math.floor(Math.random()*(120-116+1))+116;
+else if(rand < rates.r1+rates.r2+rates.r3)
+return Math.floor(Math.random()*(124-121+1))+121;
+else
+return Math.floor(Math.random()*(126-125+1))+125;
+}
+
+function chonGoi(g,giaTien){
+goi=g;
+gia=giaTien;
+alert("Đã chọn gói "+g);
+}
+
+function mua(){
+if(choDuyet){
+alert("Đơn đang chờ admin duyệt!");
+return;
+}
+
+var id=document.getElementById("gameid").value;
+if(goi=="" || id==""){
+alert("Vui lòng chọn gói và nhập ID!");
+return;
+}
+
+choDuyet=true;
+document.getElementById("muabtn").disabled=true;
+
+var maDon="DH"+Math.floor(Math.random()*10000);
+
+thongTinDon={
+id:id,
+maDon:maDon
+};
+
+document.getElementById("ketqua").innerHTML=
+"⏳ Đơn "+maDon+" đang chờ admin duyệt...";
+}
+
+function duyetDon(){
+if(!choDuyet){
+alert("Không có đơn nào!");
+return;
+}
+
+var ovr=randomOVR();
+
+document.getElementById("ketqua").innerHTML=
+"🎉 OVR: "+ovr+" | Mã đơn: "+thongTinDon.maDon;
+
+document.getElementById("thanhtoan").style.display="block";
+document.getElementById("noidung").innerHTML=
+"Nội dung chuyển khoản: "+thongTinDon.maDon+
+" - "+goi+" - ID "+thongTinDon.id+" - "+gia+"đ";
+
+choDuyet=false;
+}
+
+</script>
+
+</body>
+</html>
